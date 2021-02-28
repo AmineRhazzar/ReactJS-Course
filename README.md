@@ -1,9 +1,3 @@
-<style>
-  table th:first-of-type {
-    width: 200px;
-  }
-</style>
-
 # ReactJs-Course
 this git repository is not one for my projects in ReactJs. It just _records_ my evolution throughout the book : [Fullstack React: The Complete Guide to ReactJS and friends](https://www.amazon.fr/Fullstack-React-Complete-Reactjs-Friends/dp/0991344626)
 
