@@ -1,26 +1,22 @@
 class ProductList extends React.Component {
 	state = {
-		products: [],
-	};
-
+		products: []
+	}
 	componentDidMount() {
-		this.setState({
-			products: Seed.products,
-		});
+		this.setState({ products: Seed.products })
 	}
 
 	handleUpvote = (productId) => {
-		const 	newProducts = this.state.products.map((product) => {
-			if (product.id === productId) {
-				return Object.assign({}, product, { votes: product.votes + 1 });
+		const NewProducts = this.state.products.map((product) => {
+			if(product.id === productId){
+				return Object.assign({}, product, { votes : product.votes + 1 });
 			}else{
 				return product;
 			}
-		})
-		this.setState({
-			products: newProducts,
 		});
+		this.setState({products : NewProducts});
 	}
+
 	render() {
 		const productComponents = this.state.products.map((product) => {
 			return (
@@ -43,7 +39,7 @@ class ProductList extends React.Component {
 
 class Product extends React.Component {
 
-	handleUpvote = () =>{
+	handleUpvote = () => {
 		this.props.onVote(this.props.id);
 	}
 
@@ -62,7 +58,7 @@ class Product extends React.Component {
 					</div>
 					<div className="description">
 						<a>{this.props.title}</a>
-						<p>{this.props.description}</p>
+						<p className="parag">{this.props.description}</p>
 					</div>
 					<div className="extra">
 						<span>Submitted by:</span>
