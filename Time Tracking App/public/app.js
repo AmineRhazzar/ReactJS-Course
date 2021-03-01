@@ -1,56 +1,45 @@
 class TimerDashboard extends React.Component {
     state = {
-        timers: [
-            {
-                title: 'Practice squat',
-                project: 'Gym Chores',
-                id: uuid.v4(),
-                elapsed: 5456099,
-                runningSince: Date.now(),
-            },
-            {
-                title: 'Bake squash',
-                project: 'Kitchen Chores',
-                id: uuid.v4(),
-                elapsed: 1273998,
-                runningSince: null,
-            }
-        ]
+        timers: []
+    }
+
+    componentDidMount() {
+        this.loadTimersFromServer();
+        setInterval(this.loadTimersFromServer, 5000);
+    }
+
+    loadTimersFromServer = () => {
+        client.getTimers((serverTimers) => {
+            this.setState({ timers: serverTimers })
+        });
     }
 
     updateTimer = (timerId, newTitle, newProject) => {
         this.setState(
-            Object.assign(
-                {},
-                this.state,
-                {
-                    timers: this.state.timers.map((timer) => {
-                        if (timer.id === timerId) {
-                            return Object.assign(
-                                {},
-                                timer,
-                                { title: newTitle, project: newProject }
-                            );
-                        } else {
-                            return timer;
-                        }
-                    })
-                }
-            )
+            {
+                timers: this.state.timers.map((timer) => {
+                    if (timer.id === timerId) {
+                        return Object.assign(
+                            {},
+                            timer,
+                            { title: newTitle, project: newProject }
+                        );
+                    } else {
+                        return timer;
+                    }
+                })
+            }
         );
+
+        client.updateTimer({ id: timerId, title: newTitle, project: newProject });
     }
 
     createTimer = (newTitle, newProject) => {
         const newTimer = helpers.newTimer({ title: newTitle, project: newProject });
         this.setState(
-            Object.assign(
-                {},
-                this.state,
-                {
-                    timers: this.state.timers.concat(newTimer)
-                }
-            )
+            Object.assign({ timers: this.state.timers.concat(newTimer) })
         );
+        client.createTimer(newTimer);
     }
 
     deleteTimer = (timerId) => {
@@ -61,6 +50,8 @@ class TimerDashboard extends React.Component {
                 }
             )
         );
+
+        client.deleteTimer({ id: timerId });
     }
 
     startTimer = (timerId) => {
@@ -80,6 +71,8 @@ class TimerDashboard extends React.Component {
                 })
             }
         );
+
+        client.startTimer({id: timerId, start:now});
     }
 
     stopTimer = (timerId) => {
@@ -105,6 +98,8 @@ class TimerDashboard extends React.Component {
                 })
             }
         );
+
+        client.stopTimer({id: timerId, stop:now});
     }
 
     render() {
