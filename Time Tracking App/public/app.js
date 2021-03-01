@@ -214,7 +214,7 @@ class Timer extends React.Component {
 
     //gets executed right after the components "mounts" i.e. gets added to the html
     componentDidMount() {
-        this.forceUpdateInterval = setInterval(this.forceUpdate(), 50);
+        this.forceUpdateInterval = setInterval(() => this.forceUpdate(), 50);
         /* forceUpdate(), when called on a React Component, forces the component to re-render itself */
     }
 
@@ -240,7 +240,7 @@ class Timer extends React.Component {
     }
 
     render() {
-        const elapsedString = helpers.renderElapsedString(this.props.elapsed);
+        const elapsedString = helpers.renderElapsedString(this.props.elapsed, this.props.runningSince);
         return (
             <div className='ui centered card'>
                 <div className='content'>
