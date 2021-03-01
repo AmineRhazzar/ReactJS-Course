@@ -1,4 +1,4 @@
-# ReactJs-Course
+# ReactJs Course
 this git repository is not one for my own projects in React. It just _records_ my evolution throughout the book : [Fullstack React: The Complete Guide to ReactJS and friends](https://www.amazon.fr/Fullstack-React-Complete-Reactjs-Friends/dp/0991344626)
 
 This book provides simple mini-projects for the reader to ensure the clarity of example and explanations.
